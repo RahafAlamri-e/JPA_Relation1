@@ -3,8 +3,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rahafalamri.github.com.schoolmanagamentsystem.Api.ApiResponse;
-import rahafalamri.github.com.schoolmanagamentsystem.Model.Teacher;
+import rahafalamri.github.com.schoolmanagamentsystem.DTOs.DTO_IN.TeacherDTOIn;
 import rahafalamri.github.com.schoolmanagamentsystem.Service.TeacherService;
 
 @RestController
@@ -15,30 +14,30 @@ public class TeacherController {
     private final TeacherService teacherService;
 
     @GetMapping("/get")
-    public ResponseEntity<?> getAllTeachers() {
+    public ResponseEntity getAllTeachers() {
         return ResponseEntity.status(200).body(teacherService.getAllTeachers());
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addTeacher(@RequestBody @Valid Teacher teacher) {
-        teacherService.addTeacher(teacher);
-        return ResponseEntity.status(200).body(new ApiResponse("Teacher added"));
+    public ResponseEntity<?> addTeacher(@RequestBody @Valid TeacherDTOIn teacherDTOIn) {
+        teacherService.addTeacher(teacherDTOIn);
+        return ResponseEntity.status(200).body("Teacher added successfully");
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateTeacher(@PathVariable Integer id, @RequestBody @Valid Teacher teacher) {
-        teacherService.updateTeacher(id, teacher);
-        return ResponseEntity.status(200).body(new ApiResponse("Teacher updated"));
+    @PutMapping("/update/{teacherId}")
+    public ResponseEntity<?> updateTeacher(@PathVariable Integer teacherId, @RequestBody @Valid TeacherDTOIn teacherDTOIn) {
+        teacherService.updateTeacher(teacherId, teacherDTOIn);
+        return ResponseEntity.status(200).body("Teacher updated successfully");
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteTeacher(@PathVariable Integer id) {
-        teacherService.deleteTeacher(id);
-        return ResponseEntity.status(200).body(new ApiResponse("Teacher deleted"));
+    @DeleteMapping("/delete/{teacherId}")
+    public ResponseEntity<?> deleteTeacher(@PathVariable Integer teacherId) {
+        teacherService.deleteTeacher(teacherId);
+        return ResponseEntity.status(200).body("Teacher deleted successfully");
     }
 
-    @GetMapping("/details/{id}")
-    public ResponseEntity<?> getTeacherDetails(@PathVariable Integer id) {
-        return ResponseEntity.status(200).body(teacherService.getTeacherDetails(id));
+    @GetMapping("/details/{teacherId}")
+    public ResponseEntity<?> getTeacherDetails(@PathVariable Integer teacherId) {
+        return ResponseEntity.status(200).body(teacherService.getTeacherDetails(teacherId));
     }
 }
