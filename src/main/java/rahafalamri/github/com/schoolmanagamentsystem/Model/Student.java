@@ -2,7 +2,10 @@ package rahafalamri.github.com.schoolmanagamentsystem.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
 
@@ -11,7 +14,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Course {
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +23,13 @@ public class Course {
     @Column(columnDefinition = "varchar(50) not null")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    @JsonIgnore
-    private Teacher teacher;
+    @Column(columnDefinition = "int not null check (age > 0)")
+    private Integer age;
 
-    @ManyToMany(mappedBy = "courses")
-    private Set<Student> students;
+    @Column(columnDefinition = "varchar(50) not null")
+    private String major;
+
+    @ManyToMany
+    @JsonIgnore
+    private Set<Course> courses;
 }

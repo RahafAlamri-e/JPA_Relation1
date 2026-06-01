@@ -22,7 +22,7 @@ public class CourseController {
     @PostMapping("/add/{teacherId}")
     public ResponseEntity<?> addCourse(@PathVariable Integer teacherId, @RequestBody @Valid CourseDTOIn courseDTOIn) {
         courseService.addCourse(teacherId, courseDTOIn);
-        return ResponseEntity.status(200).body("Course added successfully");
+        return ResponseEntity.status(201).body("Course added successfully");
     }
 
     @PutMapping("/update/{courseId}")
@@ -40,5 +40,10 @@ public class CourseController {
     @GetMapping("/teacher-name/{courseId}")
     public ResponseEntity<?> getTeacherNameByCourseId(@PathVariable Integer courseId) {
         return ResponseEntity.status(200).body(courseService.getTeacherNameByCourseId(courseId));
+    }
+
+    @GetMapping("/students/{courseId}")
+    public ResponseEntity<?> getStudentsByCourseId(@PathVariable Integer courseId) {
+        return ResponseEntity.status(200).body(courseService.getStudentsByCourseId(courseId));
     }
 }
